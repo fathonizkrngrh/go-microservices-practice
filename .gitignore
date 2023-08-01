@@ -1,0 +1,29 @@
+# Go specific build artifacts
+**/*.exe
+**/*.exe~
+**/*.dll
+**/*.so
+**/*.dylib
+**/*.test
+**/*.out
+
+# Compiled Object files, Static and Shared libraries
+*.o
+*.a
+
+# Dependency directories
+/vendor/
+**/go.sum
+**/go.mod
+/project/db-data
+
+# Binary
+**/authApp
+**/brokerApp
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Log files
+*.log
