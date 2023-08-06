@@ -37,13 +37,13 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request)   {
 
 	switch requestPayload.Action {
 	case "auth":
-
+		app.authenticate(w, requestPayload.Auth)
 	default:
 		app.errorJSON(w, errors.New("Unknown action"))
 	}
 }
 
-func (app *Config) authentication(w http.ResponseWriter, a AuthPayload){
+func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload){
 	// create some json we'll send to the auth microservice
 	jsonData, _ := json.MarshalIndent(a, "", "\t")
 
@@ -85,4 +85,11 @@ func (app *Config) authentication(w http.ResponseWriter, a AuthPayload){
 		app.errorJSON(w, err, http.StatusUnauthorized)
 		return
 	}
+
+	var payload jsonResponse
+	payload.Error = false
+	payload.Message = "Authenticated!!"
+	payload.Data = jsonFromService.Data
+
+	app.writeJSON(w, http.StatusAccepted, payload)
 }
