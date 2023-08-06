@@ -6,8 +6,18 @@
             <div class="col">
                 <h1 class="mt-5">Test microservices</h1>
                 <hr>
-                <a id="brokerBtn" class="btn btn-outline-secondary" href="javascript:void(0);">Test Broker</a>
-                <a id="authBrokerBtn" class="btn btn-outline-secondary" href="javascript:void(0);">Test Broker Auth</a>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                </div>
+                <div  class="mt-2">
+                    <a id="brokerBtn" class="btn btn-outline-secondary" href="javascript:void(0);">Test Broker</a>
+                    <a id="authBrokerBtn" class="btn btn-outline-secondary" href="javascript:void(0);">Test Broker Auth</a>
+                </div>
 
                 <div id="output" class="mt-5" style="outline: 1px solid silver; padding: 2em;">
                     <span class="text-muted">Output shows here...</span>
@@ -62,11 +72,19 @@
     })
 
     authBrokerBtn.addEventListener("click", function() {
+        let email =  document.getElementById("email").value;
+        let password =  document.getElementById("password").value;
+
+        console.log(email, password);
+        if (!email || !password) {
+            return output.innerHTML = `<br><strong>Error:</strong> Fill all the fields`;
+        }
+
         const payload = {
             action: "auth",
             auth: {
-                email: "admin@example.com",
-                password: "verysecret",
+                email: email,
+                password: password,
             }
         }
 
